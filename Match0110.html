@@ -1,0 +1,394 @@
+
+<!DOCTYPE html>
+<html>
+
+<?php include('Templates/header.php'); ?>
+
+<body class="sub_page">
+  <div class="hero_area">
+    <!-- header section strats -->
+    <header class="header_section">
+      <div class="container-fluid">
+        <nav class="navbar navbar-expand-lg custom_nav-container">
+          <a class="navbar-brand" href="index.html">
+            <img src="images/logo.png" alt="" />
+            <span>
+              Spering
+            </span>
+          </a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <?php include('templates/collapse_navbar.php'); ?>
+
+          <div>
+            <div class="custom_menu-btn ">
+              <button>
+                <span class=" s-1">
+
+                </span>
+                <span class="s-2">
+
+                </span>
+                <span class="s-3">
+
+                </span>
+              </button>
+            </div>
+          </div>
+
+        </nav>
+      </div>
+    </header>
+    <!-- end header section -->
+  </div>
+
+
+  <!-- freelance section -->
+ 
+  <section class="freelance_section layout_padding">
+    <div id="accordion">
+      <div class="container-fluid">
+        <div class="row">
+          <form method="post">
+            <select name ="table">
+              <option value="ms">ms</option>
+              <option value="ws">ws</option>
+              <option value="md">md</option>
+              <option value="wd">wd</option>
+              <option value="xd">xd</option>
+            </select>
+    
+          
+          <label>Search</label>
+          <input type="text" name="search">
+          <input type="submit" name="submit">
+          </form>
+          
+          </html>
+          <?php
+              $con = new PDO("mysql:host=localhost;dbname=badminton",'root','');
+
+              if (isset($_POST["submit"])){
+                $table = $_POST["table"];
+                $str = $_POST["search"];
+                  ?>
+                  <br><br><br><?php
+                  if($table=='ms'||$table=='ws'){
+                    $sth1 = $con->prepare("SELECT t1.tournament, t1.tournament_type, t1.date, t1.round, t1.team_one_players AS Player1, t1.team_one_nationality AS Player1_nationality, t1.team_two_players AS Player2, t1.team_two_nationality AS Player2_nationality, t1.game_1_score, t1.game_2_score, t1.game_3_score, t1.team_one_most_consecutive_points, t1.team_two_most_consecutive_points, t1.team_one_game_points,t1.team_two_game_points
+                                          FROM `$table` t1
+                                          WHERE t1.team_one_players='$str'
+                                          UNION
+                                          SELECT t1.tournament, t1.tournament_type, t1.date, t1.round, t1.team_one_players AS Player1, t1.team_one_nationality AS Player1_nationality, t1.team_two_players AS Player2, t1.team_two_nationality AS Player2_nationality, t1.game_1_score, t1.game_2_score, t1.game_3_score, t1.team_one_most_consecutive_points, t1.team_two_most_consecutive_points, t1.team_one_game_points,t1.team_two_game_points 
+                                          FROM `$table` t1
+                                          WHERE t1.team_two_players='$str'");
+                    $sth1->setFetchMode(PDO:: FETCH_OBJ);
+                    $sth1 -> execute();
+                    if($row = $sth1->fetch()){
+                      ?>
+                    <table>
+                      <tr>
+                          <th>Tournament</th>
+                          <th>Tournament_type</th>
+                          <th>Date</th>
+                          <th>Round</th>
+                          <th>Player1</th>
+                          <th>Player1_nationality</th>
+                          <th>Player2</th>
+                          <th>Player2_nationality</th>
+                          <th>g1_score</th>
+                          <th>g2_score</th>
+                          <th>g3_score</th>
+                          <th>P1_most_consecutive_points</th>
+                          <th>P2_most_consecutive_points</th>
+                          <th>P1_game_points</th>
+                          <th>P2_game_points</th>
+                      </tr>
+                      <?php foreach($sth1 as $row){ ?>
+                        <tr>
+                          <td><?php echo $row->tournament; ?></td>
+                          <td><?php echo $row->tournament_type; ?></td>
+                          <td><?php echo $row->date; ?></td>
+                          <td><?php echo $row->round; ?></td>
+                          <td><?php echo $row->Player1; ?></td>
+                          <td><?php echo $row->Player1_nationality; ?></td>
+                          <td><?php echo $row->Player2; ?></td>
+                          <td><?php echo $row->Player2_nationality; ?></td>
+                          <td><?php echo $row->game_1_score; ?></td>
+                          <td><?php echo $row->game_2_score; ?></td>
+                          <td><?php echo $row->game_3_score; ?></td>
+                          <td><?php echo $row->team_one_most_consecutive_points; ?></td>
+                          <td><?php echo $row->team_two_most_consecutive_points; ?></td>
+                          <td><?php echo $row->team_one_game_points; ?></td>
+                          <td><?php echo $row->team_two_game_points;?></td>
+                        </tr>
+                      <?php } ?>
+                      
+                      </table>
+                      <?php
+                        }else{
+                              echo "Player not found";
+                        }
+                      }else{
+                        ?><!--SELECT * FROM `$table` WHERE team_one_player_one = '$str'--><?php
+                        $sth2 = $con->prepare("SELECT t1.tournament, t1.tournament_type, t1.date, t1.round, t1.team_one_player_one AS Team1_player1, t1.team_one_player_two AS Team1_player2, t1.team_one_nationality, t1.team_two_player_one AS Team2_player1, t1.team_two_player_two AS Team2_player2, t1.team_two_nationality, t1.game_1_score, t1.game_2_score, t1.game_3_score, t1.team_one_most_consecutive_points, t1.team_two_most_consecutive_points, t1.team_one_game_points,t1.team_two_game_points 
+                                              FROM `$table` t1
+                                              WHERE t1.team_one_player_one='$str'
+                                              UNION
+                                              SELECT t1.tournament, t1.tournament_type, t1.date, t1.round, t1.team_one_player_one AS Team1_player1, t1.team_one_player_two AS Team1_player2, t1.team_one_nationality, t1.team_two_player_one AS Team2_player1, t1.team_two_player_two AS Team2_player2, t1.team_two_nationality, t1.game_1_score, t1.game_2_score, t1.game_3_score, t1.team_one_most_consecutive_points, t1.team_two_most_consecutive_points, t1.team_one_game_points,t1.team_two_game_points 
+                                              FROM `$table` t1
+                                              WHERE t1.team_one_player_two='$str'
+                                              UNION
+                                              SELECT t1.tournament, t1.tournament_type, t1.date, t1.round, t1.team_one_player_one AS Team1_player1, t1.team_one_player_two AS Team1_player2, t1.team_one_nationality, t1.team_two_player_one AS Team2_player1, t1.team_two_player_two AS Team2_player2, t1.team_two_nationality, t1.game_1_score, t1.game_2_score, t1.game_3_score, t1.team_one_most_consecutive_points, t1.team_two_most_consecutive_points, t1.team_one_game_points,t1.team_two_game_points 
+                                              FROM `$table` t1
+                                              WHERE t1.team_two_player_one='$str'
+                                              UNION
+                                              SELECT t1.tournament, t1.tournament_type, t1.date, t1.round, t1.team_one_player_one AS Team1_player1, t1.team_one_player_two AS Team1_player2, t1.team_one_nationality, t1.team_two_player_one AS Team2_player1, t1.team_two_player_two AS Team2_player2, t1.team_two_nationality, t1.game_1_score, t1.game_2_score, t1.game_3_score, t1.team_one_most_consecutive_points, t1.team_two_most_consecutive_points, t1.team_one_game_points,t1.team_two_game_points 
+                                              FROM `$table` t1
+                                              WHERE t1.team_two_player_two='$str'");
+                        $sth2->setFetchMode(PDO:: FETCH_OBJ);
+                        $sth2 -> execute();
+                        if($row = $sth2->fetch()){
+                      ?>
+                    <table>
+                      <tr>
+                        <th>Tournament</th>
+                        <th>Tournament_type</th>
+                        <th>Date</th>
+                        <th>Round</th>
+                        <th>Team1_player1</th>
+                        <th>Team1_player2</th>
+                        <th>Team1_nationality</th>
+                        <th>Team2_player1</th>
+                        <th>Team2_player2</th>
+                        <th>Team2_nationality</th>
+                        <th>g1_score</th>
+                        <th>g2_score</th>
+                        <th>g3_score</th>
+                        <th>Team1_most_consecutive_points</th>
+                        <th>Team2_most_consecutive_points</th>
+                        <th>Team1_game_points</th>
+                        <th>Team2_game_points</th>
+                      </tr>
+                      <?php foreach($sth2 as $row){ ?>
+                        <tr>
+                            <td><?php echo $row->tournament ;?></td>
+                            <td><?php echo $row->tournament_type;?></td>
+                            <td><?php echo $row->date;?></td>
+                            <td><?php echo $row->round;?></td>
+                            <td><?php echo $row->Team1_player1; ?></td>
+                            <td><?php echo $row->Team1_player2;?></td>
+                            <td><?php echo $row->team_one_nationality;?></td>
+                            <td><?php echo $row->Team2_player1 ;?></td>
+                            <td><?php echo $row->Team2_player2 ;?></td>
+                            <td><?php echo $row->team_two_nationality ;?></td>
+                            <td><?php echo $row->game_1_score ;?></td>
+                            <td><?php echo $row->game_2_score ;?></td>
+                            <td><?php echo $row->game_3_score ;?></td>
+                            <td><?php echo $row->team_one_most_consecutive_points ;?></td>
+                            <td><?php echo $row->team_two_most_consecutive_points ;?></td>
+                            <td><?php echo $row->team_one_game_points ;?></td>
+                            <td><?php echo $row->team_two_game_points ;?></td>
+
+                        </tr>
+                    <?php } ?>
+                    </table>
+                    <?php
+                  }else{
+                        echo "Player not found";
+                      }
+                  }
+              }?>
+          
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="collapse show" id="collapseOne" aria-labelledby="headingOne" data-parent="#accordion">
+              <div class="img-box">
+                <img src="images/freelance-img.jpg" alt="">
+              </div>
+            </div>
+            <div class="collapse" id="collapseTwo" aria-labelledby="headingTwo" data-parent="#accordion">
+              <div class="img-box">
+                <img src="images/freelance-img.jpg" alt="">
+              </div>
+            </div>
+            <div class="collapse" id="collapseThree" aria-labelledby="headingThree" data-parent="#accordion">
+              <div class="img-box">
+                <img src="images/freelance-img.jpg" alt="">
+              </div>
+            </div>
+            <div class="collapse" id="collapseFour" aria-labelledby="headingfour" data-parent="#accordion">
+              <div class="img-box">
+                <img src="images/freelance-img.jpg" alt="">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- end freelance section -->
+
+  <!-- info section -->
+
+  <section class="info_section ">
+    <div class="info_container layout_padding-top">
+      <div class="container">
+        <div class="info_top">
+          <div class="info_logo">
+            <img src="images/logo.png" alt="" />
+            <span>
+              Spering
+            </span>
+          </div>
+          <div class="social_box">
+            <a href="#">
+              <img src="images/fb.png" alt="">
+            </a>
+            <a href="#">
+              <img src="images/twitter.png" alt="">
+            </a>
+            <a href="#">
+              <img src="images/linkedin.png" alt="">
+            </a>
+            <a href="#">
+              <img src="images/instagram.png" alt="">
+            </a>
+            <a href="#">
+              <img src="images/youtube.png" alt="">
+            </a>
+          </div>
+        </div>
+
+        <div class="info_main">
+          <div class="row">
+            <div class="col-md-3 col-lg-2">
+              <div class="info_link-box">
+                <h5>
+                  Useful Link
+                </h5>
+                <ul>
+                  <li class=" active">
+                    <a class="" href="index.html">Home <span class="sr-only">(current)</span></a>
+                  </li>
+                  <li class="">
+                    <a class="" href="about.html">About </a>
+                  </li>
+                  <li class="">
+                    <a class="" href="work.html">Work </a>
+                  </li>
+                  <li class="">
+                    <a class="" href="category.html">Category </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="col-md-3 ">
+              <h5>
+                Offices
+              </h5>
+              <p>
+                Readable content of a page when looking at its layoutreadable content of a page when looking at its layout
+              </p>
+            </div>
+
+            <div class="col-md-3 col-lg-2 offset-lg-1">
+              <h5>
+                Information
+              </h5>
+              <p>
+                Readable content of a page when looking at its layoutreadable content of a page when looking at its layout
+              </p>
+            </div>
+
+            <div class="col-md-3  offset-lg-1">
+              <div class="info_form ">
+                <h5>
+                  Newsletter
+                </h5>
+                <form action="">
+                  <input type="email" placeholder="Email">
+                  <button>
+                    Subscribe
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-9 col-md-10 mx-auto">
+            <div class="info_contact layout_padding2">
+              <div class="row">
+                <div class="col-md-3">
+                  <a href="#" class="link-box">
+                    <div class="img-box">
+                      <img src="images/location.png" alt="">
+                    </div>
+                    <div class="detail-box">
+                      <h6>
+                        Location
+                      </h6>
+                    </div>
+                  </a>
+                </div>
+                <div class="col-md-4">
+                  <a href="#" class="link-box">
+                    <div class="img-box">
+                      <img src="images/mail.png" alt="">
+                    </div>
+                    <div class="detail-box">
+                      <h6>
+                        demo@gmail.com
+                      </h6>
+                    </div>
+                  </a>
+                </div>
+                <div class="col-md-5">
+                  <a href="#" class="link-box">
+                    <div class="img-box">
+                      <img src="images/call.png" alt="">
+                    </div>
+                    <div class="detail-box">
+                      <h6>
+                        Call +01 1234567890
+                      </h6>
+                    </div>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- end info section -->
+
+  <!-- footer section -->
+  <footer class="container-fluid footer_section ">
+    <div class="container">
+      <p>
+        &copy; <span id="displayDate"></span> All Rights Reserved By
+        <a href="https://html.design/">Free Html Templates</a>
+      </p>
+    </div>
+  </footer>
+  <!-- end  footer section -->
+
+
+  <script src="js/jquery-3.4.1.min.js"></script>
+  <script src="js/bootstrap.js"></script>
+  <script src="js/custom.js"></script>
+
+
+
+</body>
+</body>
+
+</html>
