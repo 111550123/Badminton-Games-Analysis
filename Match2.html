@@ -68,7 +68,6 @@
           
           </html>
           <?php
-              session_start();  //add
               $con = new PDO("mysql:host=localhost;dbname=badminton",'root','');
               
               if (isset($_POST["submit"])){
@@ -76,7 +75,6 @@
                 $str = $_POST["search"];
                   ?>
                   <br><br><br><?php
-                  session_start();  //add
                   
                   if($table=='ms'||$table=='ws'){
                     $sth1 = $con->prepare("SELECT t1.tournament, t1.tournament_type, t1.date, t1.round, t1.team_one_players AS Player1, t1.team_one_nationality AS Player1_nationality, t1.team_two_players AS Player2, t1.team_two_nationality AS Player2_nationality, t1.game_1_score, t1.game_2_score, t1.game_3_score, t1.team_one_most_consecutive_points, t1.team_two_most_consecutive_points, t1.team_one_game_points,t1.team_two_game_points
@@ -92,17 +90,17 @@
                         $userId = $_SESSION["id"];  //add
 
                         // 查詢user有沒有查過 player
-                        $checkSql = "SELECT * FROM query_times_nationality WHERE user_id = $userId AND nationality = '$str'";
-                        $checkResult = $conn->query($checkSql);
+                        $checkSql = "SELECT * FROM query_times_nationality WHERE id = $userId AND nationality = '$str'";
+                        $checkResult = $con->query($checkSql);
                     
                         if ($checkResult->rowCount() > 0) {
                             // 更新 times
                             $updateSql = "UPDATE query_times_nationality SET times = times + 1 WHERE id = $userId AND nationality = '$str'";
-                            $conn->query($updateSql);
+                            $con->query($updateSql);
                         } else {
                             // 加新紀錄
                             $insertSql = "INSERT INTO query_times_nationality (id, nationality, times) VALUES ($userId, '$str', 1)";
-                            $conn->query($insertSql);
+                            $con->query($insertSql);
                         }
                         // add
                       ?>
@@ -151,7 +149,6 @@
                         }
                       }else{
                         ?><!--SELECT * FROM `$table` WHERE team_one_player_one = '$str'--><?php
-                        session_start();  //add
                         $sth2 = $con->prepare("SELECT t1.tournament, t1.tournament_type, t1.date, t1.round, t1.team_one_player_one AS Team1_player1, t1.team_one_player_two AS Team1_player2, t1.team_one_nationality, t1.team_two_player_one AS Team2_player1, t1.team_two_player_two AS Team2_player2, t1.team_two_nationality, t1.game_1_score, t1.game_2_score, t1.game_3_score, t1.team_one_most_consecutive_points, t1.team_two_most_consecutive_points, t1.team_one_game_points,t1.team_two_game_points 
                                               FROM `$table` t1
                                               WHERE t1.team_one_nationality='$str'
@@ -165,17 +162,17 @@
                           $userId = $_SESSION["id"];  //add
 
                           // 查詢user有沒有查過 player
-                          $checkSql = "SELECT * FROM query_times_nationality WHERE user_id = $userId AND nationality = '$str'";
-                          $checkResult = $conn->query($checkSql);
+                          $checkSql = "SELECT * FROM query_times_nationality WHERE id = $userId AND nationality = '$str'";
+                          $checkResult = $con->query($checkSql);
                       
                           if ($checkResult->rowCount() > 0) {
                               // 更新 times
                               $updateSql = "UPDATE query_times_nationality SET times = times + 1 WHERE id = $userId AND nationality = '$str'";
-                              $conn->query($updateSql);
+                              $con->query($updateSql);
                           } else {
                               // 加新紀錄
                               $insertSql = "INSERT INTO query_times_nationality (id, nationality, times) VALUES ($userId, '$str', 1)";
-                              $conn->query($insertSql);
+                              $con->query($insertSql);
                           }
                           // add
                       ?>
