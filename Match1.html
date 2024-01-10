@@ -90,17 +90,17 @@
                         $userId = $_SESSION["id"];  //add
 
                         // 查詢user有沒有查過 player
-                        $checkSql = "SELECT * FROM query_times_player WHERE user_id = $userId AND player = '$str'";
-                        $checkResult = $conn->query($checkSql);
+                        $checkSql = "SELECT * FROM query_times_player WHERE id = $userId AND player = '$str'";
+                        $checkResult = $con->query($checkSql);
                     
                         if ($checkResult->rowCount() > 0) {
                             // 更新 times
                             $updateSql = "UPDATE query_times_player SET times = times + 1 WHERE id = $userId AND player = '$str'";
-                            $conn->query($updateSql);
+                            $con->query($updateSql);
                         } else {
                             // 加新紀錄
                             $insertSql = "INSERT INTO query_times_player (id, player, times) VALUES ($userId, '$str', 1)";
-                            $conn->query($insertSql);
+                            $con->query($insertSql);
                         }
                         // add
                       ?>
@@ -170,17 +170,17 @@
                           $userId = $_SESSION["id"];  //add
 
                           // 查詢user有沒有查過 player
-                          $checkSql2 = "SELECT * FROM query_times_player WHERE user_id = $userId AND player = '$str'";
-                          $checkResult2 = $conn->query($checkSql2);
+                          $checkSql2 = "SELECT * FROM query_times_player WHERE id = $userId AND player = '$str'";
+                          $checkResult2 = $con->query($checkSql2);
                       
                           if ($checkResult2->rowCount() > 0) {
                               // 更新 times
                               $updateSql2 = "UPDATE query_times_player SET times = times + 1 WHERE id = $userId AND player = '$str'";
-                              $conn->query($updateSql2);
+                              $con->query($updateSql2);
                           } else {
                               // 加新紀錄
                               $insertSql2 = "INSERT INTO query_times_player (id, player, times) VALUES ($userId, '$str', 1)";
-                              $conn->query($insertSql2);
+                              $con->query($insertSql2);
                           }
                           // add
                       ?>
