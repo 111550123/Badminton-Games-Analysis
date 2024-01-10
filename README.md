@@ -4,9 +4,13 @@ Introduction to Database Systems Final Project
 Our Functionality 
 
 1.查詢比賽
+
   輸入
+  
     比賽項目 ms/md/ws/wd/xd (使用選單)
+    
     運動員名字 / 國家
+    
   輸出
     Team1 v.s.Team2 (運動員國籍及姓名)： t1.team_one(two)_nationality,  t1.team_one(two)_player 
     賽事：t1.tournament, t1.tournament_type
@@ -77,7 +81,7 @@ Our Functionality
   註冊
     INSERT INTO `user`(`username`, `password`)
   登入
-    SELECT * from user WHERE username = 輸入的username AND password = 輸入的password
+    SELECT * FROM user WHERE username = 輸入的username AND password = 輸入的password
   刪除
     DELETE FROM users WHERE id = 登入的id
 
