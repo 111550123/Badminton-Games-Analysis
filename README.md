@@ -3,7 +3,7 @@ Introduction to Database Systems Final Project
 
 Our Functionality 
 
-1.查詢比賽
+1.查詢比賽(nation/match)
 
   -輸入
   
@@ -38,7 +38,7 @@ Our Functionality
     同理，但條件改為 WHERE t1.nationality=“國家”
     
 
-2.查詢特定運動員比賽結果、統計資料
+2.查詢特定運動員比賽結果、統計資料(player)
 
   -輸入
   
@@ -71,7 +71,7 @@ Our Functionality
     t1.team_one(two)_player=“運動員名字”，分兩個 table SELECT 分別為 nt1、nt2 (雙打則有nt1、nt2、nt3、nt4)，最外層再將全部加起來，其中勝率是將 win_cnt 和 lose_cnt 分別加起來再除
     
 
-3.查詢特定國家比賽結果、統計資料(國家、比賽項目)
+3.查詢特定國家比賽結果、統計資料(國家、比賽項目)(team)
 
   -輸入
   
