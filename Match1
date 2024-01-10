@@ -92,7 +92,7 @@
                         $userId = $_SESSION['user_id'];  //add
 
                         // 查詢user有沒有查過 player
-                        $checkSql = "SELECT * FROM your_table WHERE user_id = $userId AND player = '$str'";
+                        $checkSql = "SELECT * FROM query_times_player WHERE user_id = $userId AND player = '$str'";
                         $checkResult = $conn->query($checkSql);
                     
                         if ($checkResult->rowCount() > 0) {
@@ -173,7 +173,7 @@
                           $userId = $_SESSION['user_id'];  //add
 
                           // 查詢user有沒有查過 player
-                          $checkSql = "SELECT * FROM your_table WHERE user_id = $userId AND player = '$str'";
+                          $checkSql = "SELECT * FROM query_times_player WHERE user_id = $userId AND player = '$str'";
                           $checkResult = $conn->query($checkSql);
                       
                           if ($checkResult->rowCount() > 0) {
