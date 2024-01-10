@@ -38,14 +38,15 @@
 
 
   <!-- freelance section -->
-  <div style="display:inline-block; padding: 5px;">
+ 
+  <section style="display:inline-block; padding: 5px;">
     <br>
-    <h4>Favourite Player</h4>
+    <h4>Favourite Nationality</h4>
     <?php
-    $con = new PDO("mysql:host=localhost;dbname=badminton",'root','dbms');
       $userId = $_SESSION["id"];
-      $sth1 = $con->prepare("SELECT t1.player, t1.times
-                             FROM query_times_player t1
+      $con = new PDO("mysql:host=localhost;dbname=badminton",'root','dbms');
+      $sth1 = $con->prepare("SELECT t1.nationality, t1.times
+                             FROM query_times_nationality t1
                              WHERE t1.id=$userId
                              ORDER BY t1.times DESC
                              LIMIT 5");
@@ -57,13 +58,13 @@
       <table class="styled-table">
         <tr>
             <th>No.</th>
-            <th>Player</th>
+            <th>Nationality</th>
             <th>Times</th>
           </tr>
           <?php foreach($sth1 as $row){ ?>
           <tr>
             <td><?php echo $counter; ?>
-            <td><?php echo $row->player; ?></td>
+            <td><?php echo $row->nationality; ?></td>
             <td><?php echo $row->times; ?></td>
           </tr>
           <?php $counter++ ?>
@@ -75,15 +76,15 @@
               }
     ?>
 
-  </div>
+  </section>
 
-  <div style="display:inline-block;">
+  <section style="display:inline-block; padding: 5px;">
     <br>
-    <h4>Popular Player</h4>
+    <h4>Popular Nationality</h4>
     <?php
-      $sth2 = $con->prepare("SELECT t1.player, SUM(t1.times) AS Times
-                             FROM query_times_player t1
-                             GROUP BY t1.player
+      $sth2 = $con->prepare("SELECT t1.nationality, SUM(t1.times) AS Times
+                             FROM query_times_nationality t1
+                             GROUP BY t1.nationality
                              ORDER BY Times DESC
                              LIMIT 5");
       $sth2->setFetchMode(PDO:: FETCH_OBJ);
@@ -94,13 +95,13 @@
       <table class="styled-table">
         <tr>
             <th>No.</th>
-            <th>Player</th>
+            <th>Nationality</th>
             <th>Times</th>
           </tr>
           <?php foreach($sth2 as $row){ ?>
           <tr>
             <td><?php echo $counter2; ?>
-            <td><?php echo $row->player; ?></td>
+            <td><?php echo $row->nationality; ?></td>
             <td><?php echo $row->Times; ?></td>
           </tr>
           <?php $counter2++ ?>
@@ -112,34 +113,138 @@
               }
     ?>
 
-  </div>
+  </section>
 
-  <section >
-    <div id="container">
+    <section style="display:inline-block; padding: 5px;">
+      <br>
+      <h4>Abbreviations of Nationalities</h4>
+      
+      <table  class="styled-table">
+        <tbody>
+          <tr>
+            <td>ALG</td>
+            <td>BRN</td>
+            <td>DEN</td>
+            <td>GER</td>
+            <td>ISL</td>
+            <td>MAC</td>
+            <td>NED</td>
+            <td>POR</td>
+            <td>SRI</td>
+            <td>TUR</td>
+          </tr>
+          <tr>
+            <td>AUS</td>
+            <td>BUL</td>
+            <td>DOM</td>
+            <td>GUA</td>
+            <td>ISR</td>
+            <td>MAR</td>
+            <td>NEP</td>
+            <td>PYF</td>
+            <td>SUI</td>
+            <td>UGA</td>
+          </tr>
+          <tr>
+            <td>AUT</td>
+            <td>CAN</td>
+            <td>EGY</td>
+            <td>HKG</td>
+            <td>ITA</td>
+            <td>MAS</td>
+            <td>NGR</td>
+            <td>ROU</td>
+            <td>SUR</td>
+            <td>UKR</td>
+          </tr>
+          <tr>
+            <td>AZE</td>
+            <td>CHI</td>
+            <td>ENG</td>
+            <td>HUN</td>
+            <td>JPN</td>
+            <td>MDA</td>
+            <td>NOR</td>
+            <td>RUS</td>
+            <td>SVK</td>
+            <td>USA</td> 
+          </tr>
+          <tr>
+            <td>BEL</td>
+            <td>CHN</td>
+            <td>ESP</td>
+            <td>INA</td>
+            <td>KOR</td>
+            <td>MEX</td>
+            <td>NZL</td>
+            <td>SCO</td>
+            <td>SWE</td>
+            <td>UZB</td>  
+          </tr>
+          <tr>
+            <td>BEN</td>
+            <td>CRO</td>
+            <td>EST</td>
+            <td>IND</td>
+            <td>LAO</td>
+            <td>MGL</td>
+            <td>PER</td>
+            <td>SGP</td>
+            <td>THA</td>
+            <td>VEN</td>      
+          </tr>
+          <tr>
+            <td>BLR</td>
+            <td>CUB</td>
+            <td>FIN</td>
+            <td>IRI</td>
+            <td>LAT</td>
+            <td>MRI</td>
+            <td>PHI</td>
+            <td>SLO</td>
+            <td>TPE</td>
+            <td>VIE</td>
+          </tr>
+          <tr>
+            <td>BRA</td>
+            <td>CZE</td>
+            <td>FRA</td>
+            <td>IRL</td>
+            <td>LUX</td>
+            <td>MYA</td>
+            <td>POL</td>
+            <td>SRB</td>
+            <td>TTO</td>
+            <td>WAL</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+
+  </section>
+
+  <section>
+    <div id="accordion">
       <div class="container-fluid">
         <div class="row" >
           <div style="display: flex; align-items: center; justify-content: center; padding: 50px;">
             <form method="post">
-              <div style="align-items: center;">
-                <label style="font-size: 20px;">Select a match type: </label>
-                <select name ="table">
-                  <option value="ms">ms</option>
-                  <option value="ws">ws</option>
-                  <option value="md">md</option>
-                  <option value="wd">wd</option>
-                  <option value="xd">xd</option>
-                </select> 
-                <br>
-        
-              
-                <label style="font-size: 20px;">Enter Player name: </label>
-                <input type="text" name="search" placeholder="ex: Tzu Ying Tai" required>
-                <input type="submit" name="submit">
-              </div>
+              <label style="font-size: 20px;">Select a match type: </label>
+              <select name ="table">
+                <option value="ms">ms</option>
+                <option value="ws">ws</option>
+                <option value="md">md</option>
+                <option value="wd">wd</option>
+                <option value="xd">xd</option>
+              </select>
+              <br>
+            
+              <label style="font-size: 20px;">Enter abbreviations of nationalities: </label>
+              <input type="text" name="search" placeholder="ex: TPE" required>
+              <input type="submit" name="submit">
             </form>
           </div>
-          
-          
           <?php
               
               
@@ -152,27 +257,27 @@
                   if($table=='ms'||$table=='ws'){
                     $sth1 = $con->prepare("SELECT t1.tournament, t1.tournament_type, t1.date, t1.round, t1.team_one_players AS Player1, t1.team_one_nationality AS Player1_nationality, t1.team_two_players AS Player2, t1.team_two_nationality AS Player2_nationality, t1.game_1_score, t1.game_2_score, t1.game_3_score, t1.team_one_most_consecutive_points, t1.team_two_most_consecutive_points, t1.team_one_game_points,t1.team_two_game_points
                                           FROM `$table` t1
-                                          WHERE t1.team_one_players='$str'
+                                          WHERE t1.team_one_nationality='$str'
                                           UNION
                                           SELECT t1.tournament, t1.tournament_type, t1.date, t1.round, t1.team_one_players AS Player1, t1.team_one_nationality AS Player1_nationality, t1.team_two_players AS Player2, t1.team_two_nationality AS Player2_nationality, t1.game_1_score, t1.game_2_score, t1.game_3_score, t1.team_one_most_consecutive_points, t1.team_two_most_consecutive_points, t1.team_one_game_points,t1.team_two_game_points 
                                           FROM `$table` t1
-                                          WHERE t1.team_two_players='$str'");
+                                          WHERE t1.team_two_nationality='$str'");
                     $sth1->setFetchMode(PDO:: FETCH_OBJ);
                     $sth1 -> execute();
-                    if($sth1->rowCount() > 0){
+                    if($row = $sth1->fetch()){
                         $userId = $_SESSION["id"];  //add
 
                         // 查詢user有沒有查過 player
-                        $checkSql = "SELECT * FROM query_times_player WHERE id = $userId AND player = '$str'";
+                        $checkSql = "SELECT * FROM query_times_nationality WHERE id = $userId AND nationality = '$str'";
                         $checkResult = $con->query($checkSql);
                     
                         if ($checkResult->rowCount() > 0) {
                             // 更新 times
-                            $updateSql = "UPDATE query_times_player SET times = times + 1 WHERE id = $userId AND player = '$str'";
+                            $updateSql = "UPDATE query_times_nationality SET times = times + 1 WHERE id = $userId AND nationality = '$str'";
                             $con->query($updateSql);
                         } else {
                             // 加新紀錄
-                            $insertSql = "INSERT INTO query_times_player (id, player, times) VALUES ($userId, '$str', 1)";
+                            $insertSql = "INSERT INTO query_times_nationality (id, nationality, times) VALUES ($userId, '$str', 1)";
                             $con->query($insertSql);
                         }
                         // add
@@ -218,42 +323,34 @@
                       </table>
                       <?php
                         }else{
-                              echo "Player not found";
+                              echo "Nationality not found";
                         }
                       }else{
                         ?><!--SELECT * FROM `$table` WHERE team_one_player_one = '$str'--><?php
                         $sth2 = $con->prepare("SELECT t1.tournament, t1.tournament_type, t1.date, t1.round, t1.team_one_player_one AS Team1_player1, t1.team_one_player_two AS Team1_player2, t1.team_one_nationality, t1.team_two_player_one AS Team2_player1, t1.team_two_player_two AS Team2_player2, t1.team_two_nationality, t1.game_1_score, t1.game_2_score, t1.game_3_score, t1.team_one_most_consecutive_points, t1.team_two_most_consecutive_points, t1.team_one_game_points,t1.team_two_game_points 
                                               FROM `$table` t1
-                                              WHERE t1.team_one_player_one='$str'
+                                              WHERE t1.team_one_nationality='$str'
                                               UNION
                                               SELECT t1.tournament, t1.tournament_type, t1.date, t1.round, t1.team_one_player_one AS Team1_player1, t1.team_one_player_two AS Team1_player2, t1.team_one_nationality, t1.team_two_player_one AS Team2_player1, t1.team_two_player_two AS Team2_player2, t1.team_two_nationality, t1.game_1_score, t1.game_2_score, t1.game_3_score, t1.team_one_most_consecutive_points, t1.team_two_most_consecutive_points, t1.team_one_game_points,t1.team_two_game_points 
                                               FROM `$table` t1
-                                              WHERE t1.team_one_player_two='$str'
-                                              UNION
-                                              SELECT t1.tournament, t1.tournament_type, t1.date, t1.round, t1.team_one_player_one AS Team1_player1, t1.team_one_player_two AS Team1_player2, t1.team_one_nationality, t1.team_two_player_one AS Team2_player1, t1.team_two_player_two AS Team2_player2, t1.team_two_nationality, t1.game_1_score, t1.game_2_score, t1.game_3_score, t1.team_one_most_consecutive_points, t1.team_two_most_consecutive_points, t1.team_one_game_points,t1.team_two_game_points 
-                                              FROM `$table` t1
-                                              WHERE t1.team_two_player_one='$str'
-                                              UNION
-                                              SELECT t1.tournament, t1.tournament_type, t1.date, t1.round, t1.team_one_player_one AS Team1_player1, t1.team_one_player_two AS Team1_player2, t1.team_one_nationality, t1.team_two_player_one AS Team2_player1, t1.team_two_player_two AS Team2_player2, t1.team_two_nationality, t1.game_1_score, t1.game_2_score, t1.game_3_score, t1.team_one_most_consecutive_points, t1.team_two_most_consecutive_points, t1.team_one_game_points,t1.team_two_game_points 
-                                              FROM `$table` t1
-                                              WHERE t1.team_two_player_two='$str'");
+                                              WHERE t1.team_two_nationality='$str'");
                         $sth2->setFetchMode(PDO:: FETCH_OBJ);
                         $sth2 -> execute();
-                        if($sth2->rowCount() > 0){
+                        if($row = $sth2->fetch()){
                           $userId = $_SESSION["id"];  //add
 
                           // 查詢user有沒有查過 player
-                          $checkSql2 = "SELECT * FROM query_times_player WHERE id = $userId AND player = '$str'";
-                          $checkResult2 = $con->query($checkSql2);
+                          $checkSql = "SELECT * FROM query_times_nationality WHERE id = $userId AND nationality = '$str'";
+                          $checkResult = $con->query($checkSql);
                       
-                          if ($checkResult2->rowCount() > 0) {
+                          if ($checkResult->rowCount() > 0) {
                               // 更新 times
-                              $updateSql2 = "UPDATE query_times_player SET times = times + 1 WHERE id = $userId AND player = '$str'";
-                              $con->query($updateSql2);
+                              $updateSql = "UPDATE query_times_nationality SET times = times + 1 WHERE id = $userId AND nationality = '$str'";
+                              $con->query($updateSql);
                           } else {
                               // 加新紀錄
-                              $insertSql2 = "INSERT INTO query_times_player (id, player, times) VALUES ($userId, '$str', 1)";
-                              $con->query($insertSql2);
+                              $insertSql = "INSERT INTO query_times_nationality (id, nationality, times) VALUES ($userId, '$str', 1)";
+                              $con->query($insertSql);
                           }
                           // add
                       ?>
@@ -302,7 +399,7 @@
                     </table>
                     <?php
                   }else{
-                        echo "Player not found";
+                        echo "Nationality not found";
                       }
                   }
               }?>

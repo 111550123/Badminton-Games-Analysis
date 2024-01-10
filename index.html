@@ -9,15 +9,7 @@
     <header class="header_section">
       <div class="container-fluid">
         <nav class="navbar navbar-expand-lg custom_nav-container">
-          <a class="navbar-brand" href="index.html">
-            <img src="images/logo.png" alt="" />
-            <span>
-              Spering
-            </span>
-          </a>
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
+          
 
           <?php include('templates/collapse_navbar.php'); ?>
 
@@ -56,7 +48,9 @@
           <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active">01</li>
           <li data-target="#carouselExampleIndicators" data-slide-to="1">02</li>
           <li data-target="#carouselExampleIndicators" data-slide-to="2">03</li>
+          <li data-target="#carouselExampleIndicators" data-slide-to="3">04</li>
         </ol>
+        <!-- 1 -->
         <div class="carousel-inner">
           <div class="carousel-item active">
             <div class="container-fluid">
@@ -64,91 +58,102 @@
                 <div class="col-md-5 offset-md-1">
                   <div class="detail-box">
                     <h1>
-                      You Can <br>
-                      Hire Freelancer <br>
-                      Here
+                      Nation Search
                     </h1>
                     <p>
-                      It is a long established fact that a reader will be distracted by
-                      the readable content of a page
+                      You can search matches by nation
                     </p>
                     <div class="btn-box">
-                      <a href="" class="btn-1">
-                        About Us
-                      </a>
-                      <a href="" class="btn-2">
-                        Get A Quote
+                      <a href= <?php if(isset($_SESSION["id"])){echo '"Nation.html"';}else{echo '"login.html"';}?> class="btn-1">
+                        Search nation
                       </a>
                     </div>
                   </div>
                 </div>
                 <div class="offset-md-1 col-md-4 img-container">
                   <div class="img-box">
-                    <img src="images/slider-img.png" alt="">
+                    <img src="images/Nation.jpeg" alt="">
                   </div>
                 </div>
               </div>
             </div>
           </div>
+          <!-- 2 -->
           <div class="carousel-item ">
             <div class="container-fluid">
               <div class="row">
                 <div class="col-md-5 offset-md-1">
                   <div class="detail-box">
                     <h1>
-                      You Can <br>
-                      Hire Freelancer <br>
-                      Here
+                      Match Search
                     </h1>
                     <p>
-                      It is a long established fact that a reader will be distracted by
-                      the readable content of a page
+                      You can search matches by player name
                     </p>
                     <div class="btn-box">
-                      <a href="" class="btn-1">
-                        About Us
-                      </a>
-                      <a href="" class="btn-2">
-                        Get A Quote
+                      <a href= <?php if(isset($_SESSION["id"])){echo '"Match.html"';}else{echo '"login.html"';}?> class="btn-2">
+                        Search Match
                       </a>
                     </div>
                   </div>
                 </div>
                 <div class="offset-md-1 col-md-4 img-container">
                   <div class="img-box">
-                    <img src="images/slider-img.png" alt="">
+                    <img src="images/Olympics_2012_Mixed_Doubles_Final.jpg" alt="">
                   </div>
                 </div>
               </div>
             </div>
           </div>
+          <!-- 3 -->
           <div class="carousel-item ">
             <div class="container-fluid">
               <div class="row">
                 <div class="col-md-5 offset-md-1">
                   <div class="detail-box">
                     <h1>
-                      You Can <br>
-                      Hire Freelancer <br>
-                      Here
+                      Player Search
                     </h1>
                     <p>
-                      It is a long established fact that a reader will be distracted by
-                      the readable content of a page
+                      You can search a player's stat
                     </p>
                     <div class="btn-box">
-                      <a href="" class="btn-1">
-                        About Us
-                      </a>
-                      <a href="" class="btn-2">
-                        Get A Quote
+                      <a href= <?php if(isset($_SESSION["id"])){echo '"Player.html"';}else{echo '"login.html"';}?> class="btn-1">
+                        Search Player
                       </a>
                     </div>
                   </div>
                 </div>
                 <div class="offset-md-1 col-md-4 img-container">
                   <div class="img-box">
-                    <img src="images/slider-img.png" alt="">
+                    <img src="images/20230613000069.jpg" alt="">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- 4 -->
+          <div class="carousel-item ">
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-md-5 offset-md-1">
+                  <div class="detail-box">
+                    <h1>
+                      Team Search
+                    </h1>
+                    <p>
+                      You can get stats of teams by entering nation's name
+                    </p>
+                    <div class="btn-box">
+                      <a href= <?php if(isset($_SESSION["id"])){echo '"Team.html"';}else{echo '"login.html"';}?> class="btn-2">
+                        Search Team
+                      </a>
+                    </div>
+                  </div>
+                </div>
+                <div class="offset-md-1 col-md-4 img-container">
+                  <div class="img-box">
+                    <img src="images/Team.jpg" alt="">
                   </div>
                 </div>
               </div>
@@ -165,7 +170,7 @@
 
   <!-- experience section -->
 
-  <section class="experience_section layout_padding">
+  <!-- <section class="experience_section layout_padding">
     <div class="container">
       <div class="row">
         <div class="col-md-5">
@@ -196,13 +201,13 @@
 
       </div>
     </div>
-  </section>
+  </section> -->
 
   <!-- end experience section -->
 
   <!-- category section -->
 
-  <section class="category_section layout_padding">
+  <!-- <section class="category_section layout_padding">
     <div class="container">
       <div class="heading_container">
         <h2>
@@ -272,14 +277,14 @@
         </div>
       </div>
     </div>
-  </section>
+  </section> -->
 
 
   <!-- end category section -->
 
   <!-- about section -->
 
-  <section class="about_section layout_padding">
+  <!-- <section class="about_section layout_padding">
     <div class="container">
       <div class="row">
         <div class="col-md-10 col-lg-9 mx-auto">
@@ -300,13 +305,13 @@
         </a>
       </div>
     </div>
-  </section>
+  </section> -->
 
   <!-- end about section -->
 
   <!-- freelance section -->
 
-  <section class="freelance_section ">
+  <!-- <section class="freelance_section ">
     <div id="accordion">
       <div class="container-fluid">
         <div class="row">
@@ -399,13 +404,13 @@
         </div>
       </div>
     </div>
-  </section>
+  </section> -->
 
   <!-- end freelance section -->
 
   <!-- client section -->
 
-  <section class="client_section layout_padding">
+  <!-- <section class="client_section layout_padding">
     <div class="container">
       <div class="row">
         <div class="col-lg-9 col-md-10 mx-auto">
@@ -460,165 +465,14 @@
         </div>
       </div>
     </div>
-  </section>
+  </section> -->
 
   <!-- end client section -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1813937279934224"
+     crossorigin="anonymous"></script>
 
 
-
-  <!-- info section -->
-
-  <section class="info_section ">
-    <div class="info_container layout_padding-top">
-      <div class="container">
-        <div class="info_top">
-          <div class="info_logo">
-            <img src="images/logo.png" alt="" />
-            <span>
-              Spering
-            </span>
-          </div>
-          <div class="social_box">
-            <a href="#">
-              <img src="images/fb.png" alt="">
-            </a>
-            <a href="#">
-              <img src="images/twitter.png" alt="">
-            </a>
-            <a href="#">
-              <img src="images/linkedin.png" alt="">
-            </a>
-            <a href="#">
-              <img src="images/instagram.png" alt="">
-            </a>
-            <a href="#">
-              <img src="images/youtube.png" alt="">
-            </a>
-          </div>
-        </div>
-
-        <div class="info_main">
-          <div class="row">
-            <div class="col-md-3 col-lg-2">
-              <div class="info_link-box">
-                <h5>
-                  Useful Link
-                </h5>
-                <ul>
-                  <li class=" active">
-                    <a class="" href="index.html">Home <span class="sr-only">(current)</span></a>
-                  </li>
-                  <li class="">
-                    <a class="" href="about.html">About </a>
-                  </li>
-                  <li class="">
-                    <a class="" href="work.html">Work </a>
-                  </li>
-                  <li class="">
-                    <a class="" href="category.html">Category </a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-            <div class="col-md-3 ">
-              <h5>
-                Offices
-              </h5>
-              <p>
-                Readable content of a page when looking at its layoutreadable content of a page when looking at its layout
-              </p>
-            </div>
-
-            <div class="col-md-3 col-lg-2 offset-lg-1">
-              <h5>
-                Information
-              </h5>
-              <p>
-                Readable content of a page when looking at its layoutreadable content of a page when looking at its layout
-              </p>
-            </div>
-
-            <div class="col-md-3  offset-lg-1">
-              <div class="info_form ">
-                <h5>
-                  Newsletter
-                </h5>
-                <form action="">
-                  <input type="email" placeholder="Email">
-                  <button>
-                    Subscribe
-                  </button>
-                </form>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-lg-9 col-md-10 mx-auto">
-            <div class="info_contact layout_padding2">
-              <div class="row">
-                <div class="col-md-3">
-                  <a href="#" class="link-box">
-                    <div class="img-box">
-                      <img src="images/location.png" alt="">
-                    </div>
-                    <div class="detail-box">
-                      <h6>
-                        Location
-                      </h6>
-                    </div>
-                  </a>
-                </div>
-                <div class="col-md-4">
-                  <a href="#" class="link-box">
-                    <div class="img-box">
-                      <img src="images/mail.png" alt="">
-                    </div>
-                    <div class="detail-box">
-                      <h6>
-                        demo@gmail.com
-                      </h6>
-                    </div>
-                  </a>
-                </div>
-                <div class="col-md-5">
-                  <a href="#" class="link-box">
-                    <div class="img-box">
-                      <img src="images/call.png" alt="">
-                    </div>
-                    <div class="detail-box">
-                      <h6>
-                        Call +01 1234567890
-                      </h6>
-                    </div>
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- end info section -->
-
-  <!-- footer section -->
-  <footer class="container-fluid footer_section ">
-    <div class="container">
-      <p>
-        &copy; <span id="displayDate"></span> All Rights Reserved By
-        <a href="https://html.design/">Free Html Templates</a>
-      </p>
-    </div>
-  </footer>
-  <!-- end  footer section -->
-
-
-  <script src="js/jquery-3.4.1.min.js"></script>
-  <script src="js/bootstrap.js"></script>
-  <script src="js/custom.js"></script>
+  <?php include('templates/info.php'); ?>
 
 
 </body>

@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <!-- Basic -->
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <!-- Mobile Metas -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <!-- Site Metas -->
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+
+  <title>Spering</title>
+
+  <!-- bootstrap core css -->
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+
+  <link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">
+  <!-- Custom styles for this template -->
+  <link href="css/style.css" rel="stylesheet" />
+  <!-- responsive style -->
+  <link href="css/responsive.css" rel="stylesheet" />
+</head>
+
+<body class="sub_page">
+  <div class="hero_area">
+    <!-- header section strats -->
+    <header class="header_section">
+      <div class="container-fluid">
+        <nav class="navbar navbar-expand-lg custom_nav-container">
+
+          <?php include('templates/collapse_navbar.php'); ?>
+          
+          <div>
+            <div class="custom_menu-btn ">
+              <button>
+                <span class=" s-1">
+
+                </span>
+                <span class="s-2">
+
+                </span>
+                <span class="s-3">
+
+                </span>
+              </button>
+            </div>
+          </div>
+
+        </nav>
+      </div>
+    </header>
+    <!-- end header section -->
+  </div>
+
+
+  <!-- main section -->
+
+  <section style="display:inline-block; padding: 5px;">
+    <br>
+    <h4>Favourite Nationality</h4>
+    <?php
+      $userId = $_SESSION["id"];
+      $con = new PDO("mysql:host=localhost;dbname=badminton",'root','dbms');
+      $sth1 = $con->prepare("SELECT t1.nationality, t1.times
+                             FROM query_times_nationality t1
+                             WHERE t1.id=$userId
+                             ORDER BY t1.times DESC
+                             LIMIT 5");
+      $sth1->setFetchMode(PDO:: FETCH_OBJ);
+      $sth1 -> execute();
+      $counter = 1;
+      if($sth1->rowCount() > 0){
+    ?>
+      <table class="styled-table">
+        <tr>
+            <th>No.</th>
+            <th>Nationality</th>
+            <th>Times</th>
+          </tr>
+          <?php foreach($sth1 as $row){ ?>
+          <tr>
+            <td><?php echo $counter; ?>
+            <td><?php echo $row->nationality; ?></td>
+            <td><?php echo $row->times; ?></td>
+          </tr>
+          <?php $counter++ ?>
+          <?php } ?>
+      </table>
+            <?php
+              }else{
+                    echo "Go to serch something.";
+              }
+    ?>
+
+  </section>
+
+  <section style="display:inline-block; padding: 5px;">
+    <br>
+    <h4>Popular Nationality</h4>
+    <?php
+      $sth2 = $con->prepare("SELECT t1.nationality, SUM(t1.times) AS Times
+                             FROM query_times_nationality t1
+                             GROUP BY t1.nationality
+                             ORDER BY Times DESC
+                             LIMIT 5");
+      $sth2->setFetchMode(PDO:: FETCH_OBJ);
+      $sth2 -> execute();
+      $counter2 = 1;
+      if($sth2->rowCount() > 0){
+    ?>
+      <table class="styled-table">
+        <tr>
+            <th>No.</th>
+            <th>Nationality</th>
+            <th>Times</th>
+          </tr>
+          <?php foreach($sth2 as $row){ ?>
+          <tr>
+            <td><?php echo $counter2; ?>
+            <td><?php echo $row->nationality; ?></td>
+            <td><?php echo $row->Times; ?></td>
+          </tr>
+          <?php $counter2++ ?>
+          <?php } ?>
+      </table>
+            <?php
+              }else{
+                    echo "No data.";
+              }
+    ?>
+
+  </section>
+
+    <section style=" display:inline-block; padding: 5px;">
+      <br>
+      <h4>Abbreviations of Nationalities</h4>
+      
+      <table  class="styled-table">
+        <tbody>
+          <tr>
+            <td>ALG</td>
+            <td>BRN</td>
+            <td>DEN</td>
+            <td>GER</td>
+            <td>ISL</td>
+            <td>MAC</td>
+            <td>NED</td>
+            <td>POR</td>
+            <td>SRI</td>
+            <td>TUR</td>
+          </tr>
+          <tr>
+            <td>AUS</td>
+            <td>BUL</td>
+            <td>DOM</td>
+            <td>GUA</td>
+            <td>ISR</td>
+            <td>MAR</td>
+            <td>NEP</td>
+            <td>PYF</td>
+            <td>SUI</td>
+            <td>UGA</td>
+          </tr>
+          <tr>
+            <td>AUT</td>
+            <td>CAN</td>
+            <td>EGY</td>
+            <td>HKG</td>
+            <td>ITA</td>
+            <td>MAS</td>
+            <td>NGR</td>
+            <td>ROU</td>
+            <td>SUR</td>
+            <td>UKR</td>
+          </tr>
+          <tr>
+            <td>AZE</td>
+            <td>CHI</td>
+            <td>ENG</td>
+            <td>HUN</td>
+            <td>JPN</td>
+            <td>MDA</td>
+            <td>NOR</td>
+            <td>RUS</td>
+            <td>SVK</td>
+            <td>USA</td> 
+          </tr>
+          <tr>
+            <td>BEL</td>
+            <td>CHN</td>
+            <td>ESP</td>
+            <td>INA</td>
+            <td>KOR</td>
+            <td>MEX</td>
+            <td>NZL</td>
+            <td>SCO</td>
+            <td>SWE</td>
+            <td>UZB</td>  
+          </tr>
+          <tr>
+            <td>BEN</td>
+            <td>CRO</td>
+            <td>EST</td>
+            <td>IND</td>
+            <td>LAO</td>
+            <td>MGL</td>
+            <td>PER</td>
+            <td>SGP</td>
+            <td>THA</td>
+            <td>VEN</td>      
+          </tr>
+          <tr>
+            <td>BLR</td>
+            <td>CUB</td>
+            <td>FIN</td>
+            <td>IRI</td>
+            <td>LAT</td>
+            <td>MRI</td>
+            <td>PHI</td>
+            <td>SLO</td>
+            <td>TPE</td>
+            <td>VIE</td>
+          </tr>
+          <tr>
+            <td>BRA</td>
+            <td>CZE</td>
+            <td>FRA</td>
+            <td>IRL</td>
+            <td>LUX</td>
+            <td>MYA</td>
+            <td>POL</td>
+            <td>SRB</td>
+            <td>TTO</td>
+            <td>WAL</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- main -->
+  <section>
+    <div class="container">
+      <div class="row">
+        <div style="display: flex; padding: 50px;">
+          <form method="POST">
+              <label style="font-size: 20px;">Select a match type: </label>
+              <select name ="table">
+                <option value="ms">ms</option>
+                <option value="ws">ws</option>
+                <option value="md">md</option>
+                <option value="wd">wd</option>
+                <option value="xd">xd</option>
+              </select>
+              <br>
+
+              <label style="font-size: 20px;">Enter abbreviations of nationalities: </label>
+              <input type="text" name="team" placeholder="ex: TPE" required>
+              <input type="submit" name="submit">
+            
+          </form>
+        </div>
+      </div>
+      <!-- php -->
+      <?php
+        $con = new PDO("mysql:host=localhost;dbname=badminton",'root','dbms');
+        if(isset($_POST["submit"])){
+          $table = $_POST["table"];
+          $team = $_POST["team"];
+          $sth = $con->prepare("SELECT nt1.entry_cnt+nt2.entry_cnt as entry_cnt, nt1.total_cnt+nt2.total_cnt as total_cnt, nt1.win_cnt+nt2.win_cnt as win_cnt, nt1.lose_cnt+nt2.lose_cnt as lose_cnt, (nt1.win_cnt+nt2.win_cnt)/(nt1.win_cnt+nt2.win_cnt+nt1.lose_cnt+nt2.lose_cnt) as win_ratio, nt1.champion_cnt+nt2.champion_cnt as champion_cnt
+                                        FROM(SELECT COUNT(*) AS total_cnt, SUM(CASE WHEN t1.winner=1 THEN 1 ELSE 0 END) AS win_cnt, SUM(CASE WHEN t1.winner=2 THEN 1 ELSE 0 END) AS lose_cnt, SUM(CASE WHEN t1.winner=1 AND t1.round='Final' THEN 1 ELSE 0 END) AS champion_cnt, COUNT(DISTINCT t1.tournament) AS entry_cnt
+                                             FROM `$table` t1
+                                             WHERE t1.team_one_nationality='$team') AS nt1,
+                                            (SELECT COUNT(*) AS total_cnt, SUM(CASE WHEN t1.winner=2 THEN 1 ELSE 0 END) AS win_cnt, SUM(CASE WHEN t1.winner=1 THEN 1 ELSE 0 END) AS lose_cnt, SUM(CASE WHEN t1.winner=2 AND t1.round='Final' THEN 1 ELSE 0 END) AS champion_cnt, COUNT(DISTINCT t1.tournament) AS entry_cnt
+                                             FROM `$table` t1
+                                             WHERE t1.team_two_nationality='$team') AS nt2");
+          $sth->setFetchMode(PDO:: FETCH_OBJ);
+          $sth -> execute();
+          if($row = $sth->fetch()){
+            $userId = $_SESSION["id"];  //add
+
+            // 查詢user有沒有查過 player
+            $checkSql = "SELECT * FROM query_times_nationality WHERE id = $userId AND nationality = '$team'";
+            $checkResult = $con->query($checkSql);
+                    
+            if ($checkResult->rowCount() > 0) {
+              // 更新 times
+              $updateSql = "UPDATE query_times_nationality SET times = times + 1 WHERE id = $userId AND nationality = '$team'";
+              $con->query($updateSql);
+              } else {
+              // 加新紀錄
+              $insertSql = "INSERT INTO query_times_nationality (id, nationality, times) VALUES ($userId, '$team', 1)";
+               $con->query($insertSql);
+               }
+               // add
+            ?>
+          <table class="styled-table">
+            <tr>
+                <th>Tournament Entries</th>
+                <th>Games Played</th>
+                <th>Win</th>
+                <th>Lose</th>
+                <th>Win ratio</th>
+                <th>Champions</th>
+            </tr>
+            <?php  ?>
+              <tr>
+                <td><?php echo $row->entry_cnt; ?></td>
+                <td><?php echo $row->total_cnt; ?></td>
+                <td><?php echo $row->win_cnt; ?></td>
+                <td><?php echo $row->lose_cnt; ?></td>
+                <td><?php echo $row->win_ratio; ?></td>
+                <td><?php echo $row->champion_cnt; ?></td>
+              </tr>
+            
+            </table>
+            <?php
+              }else{
+                    echo "Team not found";
+              }
+              
+        }
+      ?>
+
+    </div>
+  </section>
+ <!-- end main section -->
+
+ <?php include('templates/info.php'); ?>
+
+</body>
+</body>
+
+</html>

@@ -9,7 +9,7 @@
   <meta name="description" content="" />
   <meta name="author" content="" />
 
-  <title>Spering</title>
+  <title>BadmintonHelper</title>
 
   <!-- bootstrap core css -->
   <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
@@ -19,4 +19,5 @@
   <link href="css/style.css" rel="stylesheet" />
   <!-- responsive style -->
   <link href="css/responsive.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet">
 </head>
