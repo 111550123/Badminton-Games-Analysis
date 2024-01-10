@@ -1,6 +1,8 @@
 # Badminton-Games-Analysis
 Introduction to Database Systems Final Project
+
 Our Functionality 
+
 1.查詢比賽
   輸入
     比賽項目 ms/md/ws/wd/xd (使用選單)
