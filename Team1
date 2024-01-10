@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <!-- Basic -->
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <!-- Mobile Metas -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <!-- Site Metas -->
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+
+  <title>Spering</title>
+
+  <!-- bootstrap core css -->
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+
+  <link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">
+  <!-- Custom styles for this template -->
+  <link href="css/style.css" rel="stylesheet" />
+  <!-- responsive style -->
+  <link href="css/responsive.css" rel="stylesheet" />
+</head>
+
+<body class="sub_page">
+  <div class="hero_area">
+    <!-- header section strats -->
+    <header class="header_section">
+      <div class="container-fluid">
+        <nav class="navbar navbar-expand-lg custom_nav-container">
+          <a class="navbar-brand" href="index.html">
+            <img src="images/logo.png" alt="" />
+            <span>
+              Spering
+            </span>
+          </a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <?php include('templates/collapse_navbar.php'); ?>
+          
+          <div>
+            <div class="custom_menu-btn ">
+              <button>
+                <span class=" s-1">
+
+                </span>
+                <span class="s-2">
+
+                </span>
+                <span class="s-3">
+
+                </span>
+              </button>
+            </div>
+          </div>
+
+        </nav>
+      </div>
+    </header>
+    <!-- end header section -->
+  </div>
+
+  <!-- main section -->
+
+  <section class="category_section layout_padding">
+    <div class="container">
+      <form method="POST">
+        <div class="player">
+          <span>Please fill nation below</span><br>
+          <select name ="table">
+            <option value="ms">ms</option>
+            <option value="ws">ws</option>
+            <option value="md">md</option>
+            <option value="wd">wd</option>
+            <option value="xd">xd</option>
+          </select>
+          <label>Search</label>
+          <input type="text" name="team">
+          <input type="submit" name="submit">
+        </div>
+      </form>
+      <!-- php -->
+      <?php
+        $con = new PDO("mysql:host=localhost;dbname=badminton",'root','');
+        if(isset($_POST["submit"])){
+          $table = $_POST["table"];
+          $team = $_POST["team"];
+          $sth = $con->prepare("SELECT nt1.entry_cnt+nt2.entry_cnt as entry_cnt, nt1.total_cnt+nt2.total_cnt as total_cnt, nt1.win_cnt+nt2.win_cnt as win_cnt, nt1.lose_cnt+nt2.lose_cnt as lose_cnt, (nt1.win_cnt+nt2.win_cnt)/(nt1.win_cnt+nt2.win_cnt+nt1.lose_cnt+nt2.lose_cnt) as win_ratio, nt1.champion_cnt+nt2.champion_cnt as champion_cnt
+                                        FROM(SELECT COUNT(*) AS total_cnt, SUM(CASE WHEN t1.winner=1 THEN 1 ELSE 0 END) AS win_cnt, SUM(CASE WHEN t1.winner=2 THEN 1 ELSE 0 END) AS lose_cnt, SUM(CASE WHEN t1.winner=1 AND t1.round='Final' THEN 1 ELSE 0 END) AS champion_cnt, COUNT(DISTINCT t1.tournament) AS entry_cnt
+                                             FROM `$table` t1
+                                             WHERE t1.team_one_nationality='$team') AS nt1,
+                                            (SELECT COUNT(*) AS total_cnt, SUM(CASE WHEN t1.winner=2 THEN 1 ELSE 0 END) AS win_cnt, SUM(CASE WHEN t1.winner=1 THEN 1 ELSE 0 END) AS lose_cnt, SUM(CASE WHEN t1.winner=2 AND t1.round='Final' THEN 1 ELSE 0 END) AS champion_cnt, COUNT(DISTINCT t1.tournament) AS entry_cnt
+                                             FROM `$table` t1
+                                             WHERE t1.team_two_nationality='$team') AS nt2");
+          $sth->setFetchMode(PDO:: FETCH_OBJ);
+          $sth -> execute();
+          if($row = $sth->fetch()){
+            ?>
+          <table>
+            <tr>
+                <th>Tournament Entries</th>
+                <th>Games Played</th>
+                <th>Win</th>
+                <th>Lose</th>
+                <th>Win ratio</th>
+                <th>Champions</th>
+            </tr>
+            <?php  ?>
+              <tr>
+                <td><?php echo $row->entry_cnt; ?></td>
+                <td><?php echo $row->total_cnt; ?></td>
+                <td><?php echo $row->win_cnt; ?></td>
+                <td><?php echo $row->lose_cnt; ?></td>
+                <td><?php echo $row->win_ratio; ?></td>
+                <td><?php echo $row->champion_cnt; ?></td>
+              </tr>
+            
+            </table>
+            <?php
+              }else{
+                    echo "Team not found";
+              }
+              
+        }
+      ?>
+
+    </div>
+  </section>
+  <!-- end main section -->
+
+  <!-- info section -->
+
+  <section class="info_section ">
+    <div class="info_container layout_padding-top">
+      <div class="container">
+        <div class="info_top">
+          <div class="info_logo">
+            <img src="images/logo.png" alt="" />
+            <span>
+              Spering
+            </span>
+          </div>
+          <div class="social_box">
+            <a href="#">
+              <img src="images/fb.png" alt="">
+            </a>
+            <a href="#">
+              <img src="images/twitter.png" alt="">
+            </a>
+            <a href="#">
+              <img src="images/linkedin.png" alt="">
+            </a>
+            <a href="#">
+              <img src="images/instagram.png" alt="">
+            </a>
+            <a href="#">
+              <img src="images/youtube.png" alt="">
+            </a>
+          </div>
+        </div>
+
+        <div class="info_main">
+          <div class="row">
+            <div class="col-md-3 col-lg-2">
+              <div class="info_link-box">
+                <h5>
+                  Useful Link
+                </h5>
+                <ul>
+                  <li class=" active">
+                    <a class="" href="index.html">Home <span class="sr-only">(current)</span></a>
+                  </li>
+                  <li class="">
+                    <a class="" href="about.html">About </a>
+                  </li>
+                  <li class="">
+                    <a class="" href="work.html">Work </a>
+                  </li>
+                  <li class="">
+                    <a class="" href="category.html">Category </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="col-md-3 ">
+              <h5>
+                Offices
+              </h5>
+              <p>
+                Readable content of a page when looking at its layoutreadable content of a page when looking at its layout
+              </p>
+            </div>
+
+            <div class="col-md-3 col-lg-2 offset-lg-1">
+              <h5>
+                Information
+              </h5>
+              <p>
+                Readable content of a page when looking at its layoutreadable content of a page when looking at its layout
+              </p>
+            </div>
+
+            <div class="col-md-3  offset-lg-1">
+              <div class="info_form ">
+                <h5>
+                  Newsletter
+                </h5>
+                <form action="">
+                  <input type="email" placeholder="Email">
+                  <button>
+                    Subscribe
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-9 col-md-10 mx-auto">
+            <div class="info_contact layout_padding2">
+              <div class="row">
+                <div class="col-md-3">
+                  <a href="#" class="link-box">
+                    <div class="img-box">
+                      <img src="images/location.png" alt="">
+                    </div>
+                    <div class="detail-box">
+                      <h6>
+                        Location
+                      </h6>
+                    </div>
+                  </a>
+                </div>
+                <div class="col-md-4">
+                  <a href="#" class="link-box">
+                    <div class="img-box">
+                      <img src="images/mail.png" alt="">
+                    </div>
+                    <div class="detail-box">
+                      <h6>
+                        demo@gmail.com
+                      </h6>
+                    </div>
+                  </a>
+                </div>
+                <div class="col-md-5">
+                  <a href="#" class="link-box">
+                    <div class="img-box">
+                      <img src="images/call.png" alt="">
+                    </div>
+                    <div class="detail-box">
+                      <h6>
+                        Call +01 1234567890
+                      </h6>
+                    </div>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- end info section -->
+
+  <!-- footer section -->
+  <footer class="container-fluid footer_section ">
+    <div class="container">
+      <p>
+        &copy; <span id="displayDate"></span> All Rights Reserved By
+        <a href="https://html.design/">Free Html Templates</a>
+      </p>
+    </div>
+  </footer>
+  <!-- end  footer section -->
+
+
+  <script src="js/jquery-3.4.1.min.js"></script>
+  <script src="js/bootstrap.js"></script>
+  <script src="js/custom.js"></script>
+
+</body>
+</body>
+
+</html>
