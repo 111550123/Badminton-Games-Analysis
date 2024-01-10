@@ -162,17 +162,17 @@
                           $userId = $_SESSION["id"];  //add
 
                           // 查詢user有沒有查過 player
-                          $checkSql = "SELECT * FROM query_times_nationality WHERE id = $userId AND nationality = '$str'";
-                          $checkResult = $con->query($checkSql);
+                          $checkSql2 = "SELECT * FROM query_times_nationality WHERE id = $userId AND nationality = '$str'";
+                          $checkResult2 = $con->query($checkSql2);
                       
-                          if ($checkResult->rowCount() > 0) {
+                          if ($checkResult2->rowCount() > 0) {
                               // 更新 times
-                              $updateSql = "UPDATE query_times_nationality SET times = times + 1 WHERE id = $userId AND nationality = '$str'";
-                              $con->query($updateSql);
+                              $updateSql2 = "UPDATE query_times_nationality SET times = times + 1 WHERE id = $userId AND nationality = '$str'";
+                              $con->query($updateSql2);
                           } else {
                               // 加新紀錄
-                              $insertSql = "INSERT INTO query_times_nationality (id, nationality, times) VALUES ($userId, '$str', 1)";
-                              $con->query($insertSql);
+                              $insertSql2 = "INSERT INTO query_times_nationality (id, nationality, times) VALUES ($userId, '$str', 1)";
+                              $con->query($insertSql2);
                           }
                           // add
                       ?>
