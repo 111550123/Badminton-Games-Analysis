@@ -5,13 +5,13 @@ Our Functionality
 
 1.查詢比賽
 
-  輸入
+  -輸入
   
     比賽項目 ms/md/ws/wd/xd (使用選單)
     
     運動員名字 / 國家
     
-  輸出
+  -輸出
   
     Team1 v.s.Team2 (運動員國籍及姓名)： t1.team_one(two)_nationality,  t1.team_one(two)_player 
 
@@ -25,7 +25,7 @@ Our Functionality
     
     局點：t1.team_one(two)_game_points
     
-  SELECT 的條件：
+  -SELECT 的條件：
   
     在比賽項目 ms/md/ws/wd/xd 中 
     
@@ -40,13 +40,13 @@ Our Functionality
 
 2.查詢特定運動員比賽結果、統計資料
 
-  輸入
+  -輸入
   
     比賽項目 ms/md/ws/wd/xd (使用選單)
     
     運動員名字
     
-  輸出
+  -輸出
   
     贏得冠軍場數 (在round = final 時贏的次數)
     
@@ -64,7 +64,7 @@ Our Functionality
     
     總場數 (總共打過幾場) COUNT()
     
-  SELECT 的條件：
+  -SELECT 的條件：
   
     在比賽項目 ms/md/ws/wd/xd 中 
     
@@ -73,13 +73,13 @@ Our Functionality
 
 3.查詢特定國家比賽結果、統計資料(國家、比賽項目)
 
-  輸入
+  -輸入
   
     比賽項目 ms/md/ws/wd/xd (使用選單)
     
     國家
     
-  輸出
+  -輸出
   
     贏得冠軍場數 (在round = final 時贏的次數)
     
@@ -87,26 +87,26 @@ Our Functionality
     
     總場數 (總共打過幾場)
     
-  SELECT 的條件：
+  -SELECT 的條件：
   
     和上一題一樣，但改為 t1.team_one(two)_nationality=“國家”
     
 
 4.熱門排行(球員/國家)
 
-  更新
+  -更新
   
     登入後使用者每做一次查詢，如果已經查過則把 times 加一
     
     沒有查過則新增一筆資料(id,  player / nationality, times = 1)
     
-  輸出
+  -輸出
   
     球員 / 國家：t1.player / t1.nationality
     
     查詢次數：SUM(t1.times) AS times
     
-  SELECT 的條件：
+  -SELECT 的條件：
   
     在 qurey_times_player / qurey_times_nationality 中 
     
@@ -117,19 +117,19 @@ Our Functionality
 
 5.喜愛球員/國家
 
-  更新
+  -更新
   
     每做一次查詢，如果已經查過則把 times 加一
     
     沒有查過則新增一筆資料(id,  player / nationality, times = 1)
     
-  輸出
+  -輸出
   
     球員 / 國家：t1.player / t1.nationality
     
     查詢次數：SUM(t1.times) AS times
     
-  SELECT 的條件：
+  -SELECT 的條件：
   
     在 qurey_times_player / qurey_times_nationality 中 
     
@@ -140,15 +140,15 @@ Our Functionality
     
 6.建立帳號
 
-  註冊
+  -註冊
   
     INSERT INTO `user`(`username`, `password`)
     
-  登入
+  -登入
   
     SELECT * FROM user WHERE username = 輸入的username AND password = 輸入的password
     
-  刪除
+  -刪除
   
     DELETE FROM users WHERE id = 登入的id
     
