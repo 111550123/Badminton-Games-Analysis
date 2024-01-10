@@ -86,7 +86,6 @@
       <!-- php -->
       //
       <?php
-              session_start();  //add
               $con = new PDO("mysql:host=localhost;dbname=badminton",'root','');
               
               if (isset($_POST["submit"])){
@@ -94,7 +93,6 @@
                 $str = $_POST["search"];
                   ?>
                   <br><br><br><?php
-                  session_start();  //add
                   
                   if($table=='ms'||$table=='ws'){
                     $sth1 = $con->prepare("SELECT nt1.entry_cnt+nt2.entry_cnt AS entry_cnt, nt1.total_cnt+nt2.total_cnt AS total_cnt, nt1.win_cnt+nt2.win_cnt AS win_cnt, nt1.lose_cnt+nt2.lose_cnt AS lose_cnt, (nt1.win_cnt+nt2.win_cnt+)/(nt1.win_cnt+nt2.win_cnt+nt1.lose_cnt+nt2.lose_cnt) AS win_ratio, nt1.champion_cnt+nt2.champion_cnt AS champion_cnt
@@ -111,17 +109,17 @@
                         $userId = $_SESSION["id"];  //add
 
                         // 查詢user有沒有查過 player
-                        $checkSql = "SELECT * FROM query_times_player WHERE user_id = $userId AND player = '$str'";
-                        $checkResult = $conn->query($checkSql);
+                        $checkSql = "SELECT * FROM query_times_player WHERE id = $userId AND player = '$str'";
+                        $checkResult = $con->query($checkSql);
                     
                         if ($checkResult->rowCount() > 0) {
                             // 更新 times
                             $updateSql = "UPDATE query_times_player SET times = times + 1 WHERE id = $userId AND player = '$str'";
-                            $conn->query($updateSql);
+                            $con->query($updateSql);
                         } else {
                             // 加新紀錄
                             $insertSql = "INSERT INTO query_times_player (id, player, times) VALUES ($userId, '$str', 1)";
-                            $conn->query($insertSql);
+                            $con->query($insertSql);
                         }
                         // add
                       ?>
@@ -151,7 +149,6 @@
                         }
                       }else{
                         ?><!--SELECT * FROM `$table` WHERE team_one_player_one = '$str'--><?php
-                        session_start();  //add
                         $sth2 = $con->prepare("SELECT nt1.entry_cnt+nt2.entry_cnt+nt3.entry_cnt+nt4.entry_cnt as entry_cnt, nt1.total_cnt+nt2.total_cnt+nt3.total_cnt+nt4.total_cnt as total_cnt, nt1.win_cnt+nt2.win_cnt+nt3.win_cnt+nt4.win_cnt as win_cnt, nt1.lose_cnt+nt2.lose_cnt+nt3.lose_cnt+nt4.lose_cnt as lose_cnt, (nt1.win_cnt+nt2.win_cnt+nt3.win_cnt+nt4.win_cnt)/(nt1.win_cnt+nt2.win_cnt+nt3.win_cnt+nt4.win_cnt + nt1.lose_cnt+nt2.lose_cnt+nt3.lose_cnt+nt4.lose_cnt) as win_ratio, nt1.champion_cnt+nt2.champion_cnt+nt3.champion_cnt+nt4.champion_cnt as champion_cnt
                                                FROM(SELECT COUNT(*) AS total_cnt, SUM(CASE WHEN t1.winner=1 THEN 1 ELSE 0 END) AS win_cnt, SUM(CASE WHEN t1.winner=2 THEN 1 ELSE 0 END) AS lose_cnt, SUM(CASE WHEN t1.winner=1 AND t1.round='Final' THEN 1 ELSE 0 END) AS champion_cnt, COUNT(DISTINCT t1.tournament) AS entry_cnt
                                                     FROM `$table` t1
@@ -171,17 +168,17 @@
                           $userId = $_SESSION["id"];  //add
 
                           // 查詢user有沒有查過 player
-                          $checkSql = "SELECT * FROM query_times_player WHERE user_id = $userId AND player = '$str'";
-                          $checkResult = $conn->query($checkSql);
+                          $checkSql = "SELECT * FROM query_times_player WHERE id = $userId AND player = '$str'";
+                          $checkResult = $con->query($checkSql);
                       
                           if ($checkResult->rowCount() > 0) {
                               // 更新 times
                               $updateSql = "UPDATE query_times_player SET times = times + 1 WHERE id = $userId AND player = '$str'";
-                              $conn->query($updateSql);
+                              $con->query($updateSql);
                           } else {
                               // 加新紀錄
                               $insertSql = "INSERT INTO query_times_player (id, player, times) VALUES ($userId, '$str', 1)";
-                              $conn->query($insertSql);
+                              $con->query($insertSql);
                           }
                           // add
                       ?>
