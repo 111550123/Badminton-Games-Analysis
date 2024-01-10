@@ -89,7 +89,7 @@
                     $sth1->setFetchMode(PDO:: FETCH_OBJ);
                     $sth1 -> execute();
                     if($row = $sth1->fetch()){
-                        $userId = $_SESSION['user_id'];  //add
+                        $userId = $_SESSION["id"];  //add
 
                         // 查詢user有沒有查過 player
                         $checkSql = "SELECT * FROM query_times_nationality WHERE user_id = $userId AND nationality = '$str'";
@@ -162,7 +162,7 @@
                         $sth2->setFetchMode(PDO:: FETCH_OBJ);
                         $sth2 -> execute();
                         if($row = $sth2->fetch()){
-                          $userId = $_SESSION['user_id'];  //add
+                          $userId = $_SESSION["id"];  //add
 
                           // 查詢user有沒有查過 player
                           $checkSql = "SELECT * FROM query_times_nationality WHERE user_id = $userId AND nationality = '$str'";
