@@ -70,7 +70,7 @@
     <div class="container">
       <form method="POST">
         <div class="player">
-          <span>Please fill nation below</span><br>
+          <span>Please fill player below</span><br>
           <select name ="table">
             <option value="ms">ms</option>
             <option value="ws">ws</option>
@@ -84,22 +84,21 @@
         </div>
       </form>
       <!-- php -->
-      //
       <?php
               $con = new PDO("mysql:host=localhost;dbname=badminton",'root','');
               
               if (isset($_POST["submit"])){
                 $table = $_POST["table"];
-                $str = $_POST["search"];
+                $str = $_POST["team"];
                   ?>
                   <br><br><br><?php
                   
                   if($table=='ms'||$table=='ws'){
-                    $sth1 = $con->prepare("SELECT nt1.entry_cnt+nt2.entry_cnt AS entry_cnt, nt1.total_cnt+nt2.total_cnt AS total_cnt, nt1.win_cnt+nt2.win_cnt AS win_cnt, nt1.lose_cnt+nt2.lose_cnt AS lose_cnt, (nt1.win_cnt+nt2.win_cnt+)/(nt1.win_cnt+nt2.win_cnt+nt1.lose_cnt+nt2.lose_cnt) AS win_ratio, nt1.champion_cnt+nt2.champion_cnt AS champion_cnt
-                                           FROM(SELECT COUNT(*) AS total_cnt, SUM(CASE WHEN t1.winner=1 THEN 1 ELSE 0 END) AS win_cnt, SUM(CASE WHEN t1.winner=2 THEN 1 ELSE 0 END) AS lose_cnt, SUM(CASE WHEN t1.winner=1 AND t1.round="Final" THEN 1 ELSE 0 END) AS champion_cnt, COUNT(DISTINCT t1.tournament) AS entry_cnt
+                    $sth1 = $con->prepare("SELECT nt1.entry_cnt+nt2.entry_cnt AS entry_cnt, nt1.total_cnt+nt2.total_cnt AS total_cnt, nt1.win_cnt+nt2.win_cnt AS win_cnt, nt1.lose_cnt+nt2.lose_cnt AS lose_cnt, (nt1.win_cnt+nt2.win_cnt)/(nt1.win_cnt+nt2.win_cnt+nt1.lose_cnt+nt2.lose_cnt) AS win_ratio, nt1.champion_cnt+nt2.champion_cnt AS champion_cnt
+                                           FROM(SELECT COUNT(*) AS total_cnt, SUM(CASE WHEN t1.winner=1 THEN 1 ELSE 0 END) AS win_cnt, SUM(CASE WHEN t1.winner=2 THEN 1 ELSE 0 END) AS lose_cnt, SUM(CASE WHEN t1.winner=1 AND t1.round='Final' THEN 1 ELSE 0 END) AS champion_cnt, COUNT(DISTINCT t1.tournament) AS entry_cnt
                                                 FROM `$table` t1
                                                 WHERE t1.team_one_players='$str') AS nt1,
-                                               (SELECT COUNT(*) AS total_cnt, SUM(CASE WHEN t1.winner=2 THEN 1 ELSE 0 END) AS win_cnt, SUM(CASE WHEN t1.winner=1 THEN 1 ELSE 0 END) AS lose_cnt, SUM(CASE WHEN t1.winner=2 AND t1.round="Final" THEN 1 ELSE 0 END) AS champion_cnt, COUNT(DISTINCT t1.tournament) AS entry_cnt
+                                               (SELECT COUNT(*) AS total_cnt, SUM(CASE WHEN t1.winner=2 THEN 1 ELSE 0 END) AS win_cnt, SUM(CASE WHEN t1.winner=1 THEN 1 ELSE 0 END) AS lose_cnt, SUM(CASE WHEN t1.winner=2 AND t1.round='Final' THEN 1 ELSE 0 END) AS champion_cnt, COUNT(DISTINCT t1.tournament) AS entry_cnt
                                                 FROM `$table` t1
                                                 WHERE t1.team_two_players='$str') AS nt2");
 
@@ -140,7 +139,6 @@
                           <td><?php echo $row->win_ratio; ?></td>
                           <td><?php echo $row->champion_cnt; ?></td>
                       </tr>
-                      <?php } ?>
                       
                       </table>
                       <?php
@@ -199,7 +197,6 @@
                         <td><?php echo $row->win_ratio; ?></td>
                         <td><?php echo $row->champion_cnt; ?></td>
                       </tr>
-                    <?php } ?>
                     </table>
                     <?php
                   }else{
@@ -208,7 +205,6 @@
                   }
               }?>
 
-      //
     </div>
   </section>
   <!-- end main section -->
