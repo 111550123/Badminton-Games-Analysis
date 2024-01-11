@@ -155,3 +155,32 @@ Our Functionality
 
 The Steps Of Reproducibility
 
+  線上網頁連結: https://badminton-helper.com/
+  
+  如果想在本地端運行網站可參考以下步驟:
+  
+  1. 從Github上下載所有檔案
+
+  https://github.com/111550123/Badminton-Games-Analysis/tree/main
+
+  2. 下載並且安裝XAMPP
+
+  https://www.apachefriends.org/
+
+  3. 將除了`badminton.sql`以外的檔案放入XAMPP資料夾中，詳細步驟可參考此連結教學
+
+  https://medium.com/@sui16783/%E6%95%99%E5%AD%B8-%E5%A6%82%E4%BD%95%E7%94%A8-xampp-%E5%9C%A8%E8%87%AA%E5%B7%B1%E7%9A%84%E9%9B%BB%E8%85%A6%E6%9E%B6%E8%A8%AD%E7%AC%AC%E4%B8%80%E5%80%8B%E7%B6%B2%E7%AB%99-d131ca1bd9e9
+
+  4. 開啟XAMPP並且啟動Apache以及MySQL
+
+    Apache --> Start
+    MySQL  --> Start
+
+  5. 使用瀏覽器進入phpMyAdmin
+
+    locahost/phpMyAdmin/
+
+  6. 將`badminton.sql`匯入
+
+  7. 最後在瀏覽器輸入 `localhost` 應該就能看到完整網頁
+
