@@ -2,7 +2,7 @@
 	session_start();
 	$message="";
 	if(count($_POST) > 0){
-		$conn = mysqli_connect('localhost', 'dbms', 'dbms', 'badminton');
+		$conn = mysqli_connect('localhost', 'root', '', 'badminton');
 		$result = mysqli_query($conn, "select * from user where username='".$_POST["username"]."' 
 		and password = '".$_POST["password"]."'");
 		$row = mysqli_fetch_array($result);
